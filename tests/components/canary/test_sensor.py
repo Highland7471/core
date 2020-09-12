@@ -2,7 +2,7 @@
 from homeassistant.components.canary import DOMAIN
 from homeassistant.components.canary.sensor import (
     ATTR_AIR_QUALITY,
-    STATE_AIR_QUALITY_ABNORMAL,,
+    STATE_AIR_QUALITY_ABNORMAL,
 )
 from homeassistant.const import (
     ATTR_UNIT_OF_MEASUREMENT,
