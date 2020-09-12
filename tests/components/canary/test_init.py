@@ -20,5 +20,5 @@ async def test_setup_with_valid_config(hass, canary) -> None:
         "homeassistant.components.canary.sensor.setup_platform",
         return_value=True,
     ):
-        assert async_setup_component(hass, DOMAIN, config)
+        assert await async_setup_component(hass, DOMAIN, config)
         await hass.async_block_till_done()
