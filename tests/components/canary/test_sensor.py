@@ -32,7 +32,13 @@ def test_sensors(hass, canary) -> None:
     ]
 
     config = {DOMAIN: {"username": "test-username", "password": "test-password"}}
-    with patch("homeassistant.components.canary.PLATFORMS", return_value=["sensor"]):
+    with patch(
+        "homeassistant.components.canary.alarm_control_panel.setup_platform",
+        return_value=True,
+    ), patch(
+        "homeassistant.components.canary.camera.setup_platform",
+        return_value=True,
+    ):
         assert setup_component(hass, DOMAIN, config)
 
     sensors = {
