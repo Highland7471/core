@@ -25,7 +25,6 @@ def canary(hass):
         yield mock_canary
 
 
-@fixture
 def mock_device(device_id, name, is_online=True, device_type_name=None):
     """Mock Canary Device class."""
     device = MagicMock()
@@ -38,7 +37,6 @@ def mock_device(device_id, name, is_online=True, device_type_name=None):
     return device
 
 
-@fixture
 def mock_location(name, is_celsius=True, devices=None):
     """Mock Canary Location class."""
     location = MagicMock()
@@ -48,7 +46,6 @@ def mock_location(name, is_celsius=True, devices=None):
     return location
 
 
-@fixture
 def mock_reading(sensor_type, sensor_value):
     """Mock Canary Reading class."""
     reading = MagicMock()
