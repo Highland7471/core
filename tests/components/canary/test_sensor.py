@@ -80,15 +80,9 @@ async def test_sensors_pro(hass, canary) -> None:
         assert state.state == data[1]
         assert state.icon == data[4]
 
-        if sensor_id == "home_dining_room_air_quality":
-            assert (
-                state.device_state_attributes[ATTR_AIR_QUALITY]
-                == STATE_AIR_QUALITY_ABNORMAL
-            )
-
 
 async def test_sensors_attributes_pro(hass, canary) -> None:
-    """Test the creation and values of the sensors for Canary Pro."""
+    """Test the creation and values of the sensors attributes for Canary Pro."""
     assert await async_setup_component(hass, "persistent_notification", {})
 
     registry = mock_registry(hass)
