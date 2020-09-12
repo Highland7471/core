@@ -14,8 +14,6 @@ from tests.async_mock import patch
 def test_sensors(hass, canary) -> None:
     """Test the creation and values of the sensors."""
     online_device_at_home = mock_device(20, "Dining Room", True, "Canary Pro")
-    offline_device_at_home = mock_device(21, "Front Yard", False, "Canary Pro")
-    online_device_at_work = mock_device(22, "Office", True, "Canary Pro")
 
     instance = canary.return_value
     instance.get_locations.return_value = [
@@ -27,6 +25,8 @@ def test_sensors(hass, canary) -> None:
     instance.get_readings.return_value = [
         mock_reading("temperature","21.12"),
         mock_reading("humidity", "50.46"),
+        mock_reading("air_quality", "0.4"),
+        mock_reading("battery", "70.4567"),
     ]
 
     config = {DOMAIN: {"username": "test-username", "password": "test-password"}}
@@ -47,6 +47,20 @@ def test_sensors(hass, canary) -> None:
             PERCENTAGE,
             None,
             "mdi:water-percent"
+        ),
+        "home_dining_room_air_quality": (
+            None,
+            "0.4",
+            None,
+            None,
+            "mdi:weather-windy"
+        ),
+        "home_dining_room_battery": (
+            None,
+            "70.4567",
+            PERCENTAGE,
+            None,
+            "mdi:battery-70"
         ),
     }
 
