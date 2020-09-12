@@ -6,16 +6,22 @@ from homeassistant.components.canary.sensor import (
     STATE_AIR_QUALITY_NORMAL,
     STATE_AIR_QUALITY_VERY_ABNORMAL,
 )
-from homeassistant.const import PERCENTAGE, TEMP_CELSIUS
+from homeassistant.const import (
+    ATTR_UNIT_OF_MEASUREMENT,
+    PERCENTAGE,
+    TEMP_CELSIUS,
+)
 from homeassistant.setup import setup_component
 
 from . import mock_device, mock_location, mock_reading
 
 from tests.async_mock import patch
+from tests.commom import mock_registry
 
 
 def test_sensors(hass, canary) -> None:
     """Test the creation and values of the sensors."""
+    registry = mock_registry(hass)
     online_device_at_home = mock_device(20, "Dining Room", True, "Canary Pro")
 
     instance = canary.return_value
@@ -26,10 +32,11 @@ def test_sensors(hass, canary) -> None:
     ]
 
     instance.get_readings.return_value = [
-        mock_reading("temperature","21.12"),
+        mock_reading("temperature", "21.12"),
         mock_reading("humidity", "50.46"),
         mock_reading("air_quality", "0.4"),
         mock_reading("battery", "70.4567"),
+        mock_reading("wifi", "-57"),
     ]
 
     config = {DOMAIN: {"username": "test-username", "password": "test-password"}}
@@ -64,6 +71,13 @@ def test_sensors(hass, canary) -> None:
             PERCENTAGE,
             None,
             "mdi:battery-70"
+        ),
+        "home_dining_room_wifi": (
+            None,
+            "-57",
+            "dBm",
+            None,
+            "mdi:wifi"
         ),
     }
 
