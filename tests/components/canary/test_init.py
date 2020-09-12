@@ -1,12 +1,13 @@
 """The tests for the Canary component."""
 from homeassistant.components.canary import DOMAIN
-from homeassistant.setup import setup_component
+from homeassistant.setup import async_setup_component
 
 from tests.async_mock import patch
 
 
-def test_setup_with_valid_config(hass, canary) -> None:
+async def test_setup_with_valid_config(hass, canary) -> None:
     """Test setup with valid YAML."""
+    assert await async_setup_component(hass, "persistent_notification", {})
     config = {DOMAIN: {"username": "foo@bar.org", "password": "bar"}}
 
     with patch(
@@ -19,6 +20,5 @@ def test_setup_with_valid_config(hass, canary) -> None:
         "homeassistant.components.canary.sensor.setup_platform",
         return_value=True,
     ):
-        assert setup_component(hass, "persistent_notification", {})
-        assert setup_component(hass, DOMAIN, config)
-        hass.block_till_done()
+        assert async_setup_component(hass, DOMAIN, config)
+        await hass.async_block_till_done()
