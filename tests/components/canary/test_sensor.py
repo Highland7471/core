@@ -43,28 +43,28 @@ def test_sensors(hass, canary) -> None:
 
     sensors = {
         "home_dining_room_temperature": (
-            None,
+            "20_temperature",
             "21.12",
             TEMP_CELSIUS,
             None,
             "mdi:thermometer",
         ),
         "home_dining_room_humidity": (
-            None,
+            "20_humidity",
             "50.46",
             PERCENTAGE,
             None,
             "mdi:water-percent",
         ),
-        "home_dining_room_air_quality": (None, "0.4", None, None, "mdi:weather-windy"),
+        "home_dining_room_air_quality": ("20_air_quality", "0.4", None, None, "mdi:weather-windy"),
         "home_dining_room_battery": (
-            None,
+            "20_battery",
             "70.4567",
             PERCENTAGE,
             None,
             "mdi:battery-70",
         ),
-        "home_dining_room_wifi": (None, "-57", "dBm", None, "mdi:wifi"),
+        "home_dining_room_wifi": ("20_wifi", "-57", "dBm", None, "mdi:wifi"),
     }
 
     for (sensor_id, data) in sensors.items():
@@ -79,7 +79,7 @@ def test_sensors(hass, canary) -> None:
         assert state.state == data[1]
         assert state.icon == data[4]
 
-        if sensor_id == 'home_dining_room_air_quality':
+        if sensor_id == "home_dining_room_air_quality":
             assert (
                 state.device_state_attributes[ATTR_AIR_QUALITY]
                 == STATE_AIR_QUALITY_ABNORMAL
