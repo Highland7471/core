@@ -3,6 +3,8 @@ from homeassistant.components.canary import DOMAIN
 from homeassistant.components.canary.sensor import (
     ATTR_AIR_QUALITY,
     STATE_AIR_QUALITY_ABNORMAL,
+    STATE_AIR_QUALITY_NORMAL,
+    STATE_AIR_QUALITY_VERY_ABNORMAL,
 )
 from homeassistant.const import ATTR_UNIT_OF_MEASUREMENT, PERCENTAGE, TEMP_CELSIUS
 from homeassistant.setup import async_setup_component
@@ -59,7 +61,7 @@ async def test_sensors_pro(hass, canary) -> None:
         ),
         "home_dining_room_air_quality": (
             "20_air_quality",
-            "0.4",
+            "0.59",
             None,
             None,
             "mdi:weather-windy",
@@ -83,6 +85,73 @@ async def test_sensors_pro(hass, canary) -> None:
                 state.device_state_attributes[ATTR_AIR_QUALITY]
                 == STATE_AIR_QUALITY_ABNORMAL
             )
+
+
+async def test_sensors_attributes_pro(hass, canary) -> None:
+    """Test the creation and values of the sensors for Canary Pro."""
+    assert await async_setup_component(hass, "persistent_notification", {})
+
+    registry = mock_registry(hass)
+    online_device_at_home = mock_device(20, "Dining Room", True, "Canary Pro")
+
+    instance = canary.return_value
+    instance.get_locations.return_value = [
+        mock_location(100, "Home", True, devices=[online_device_at_home]),
+    ]
+
+    instance.get_readings.return_value = [
+        mock_reading("temperature", "21.12"),
+        mock_reading("humidity", "50.46"),
+        mock_reading("air_quality", "0.59"),
+    ]
+
+    config = {DOMAIN: {"username": "test-username", "password": "test-password"}}
+    with patch(
+        "homeassistant.components.canary.alarm_control_panel.setup_platform",
+        return_value=True,
+    ), patch(
+        "homeassistant.components.canary.camera.setup_platform",
+        return_value=True,
+    ):
+        assert await async_setup_component(hass, DOMAIN, config)
+        await hass.async_block_till_done()
+
+    entity_id = "sensor.home_dining_room_air_quality"
+    state = hass.states.get(entity_id)
+    assert state
+
+    assert (
+        state.device_state_attributes[ATTR_AIR_QUALITY]
+        == STATE_AIR_QUALITY_ABNORMAL
+    )
+
+    instance.get_readings.return_value = [
+        mock_reading("temperature", "21.12"),
+        mock_reading("humidity", "50.46"),
+        mock_reading("air_quality", "0.4"),
+    ]
+    await hass.helpers.entity_component.async_update_entity(entity_id)
+
+    state = hass.states.get(entity_id)
+    assert state
+    assert (
+        state.device_state_attributes[ATTR_AIR_QUALITY]
+        == STATE_AIR_QUALITY_VERY_ABNORMAL
+    )
+
+    instance.get_readings.return_value = [
+        mock_reading("temperature", "21.12"),
+        mock_reading("humidity", "50.46"),
+        mock_reading("air_quality", "1.0"),
+    ]
+    await hass.helpers.entity_component.async_update_entity(entity_id)
+
+    state = hass.states.get(entity_id)
+    assert state
+    assert (
+        state.device_state_attributes[ATTR_AIR_QUALITY]
+        == STATE_AIR_QUALITY_NORMAL
+    )
 
 
 async def test_sensors_flex(hass, canary) -> None:
