@@ -41,7 +41,6 @@ def mock_reading(sensor_type, sensor_value):
 
 
 @patch("homeassistant.components.canary.CanaryData.update")
-@patch("canary.api.Api.login")
 def test_setup_with_valid_config(hass, mock_login, mock_update) -> None:
     """Test setup with valid YAML."""
     config = {"canary": {"username": "foo@bar.org", "password": "bar"}}
