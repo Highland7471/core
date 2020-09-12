@@ -7,8 +7,8 @@ from tests.async_mock import MagicMock, PropertyMock, patch
 @fixture()
 def canary(hass):
     """Mock the CanaryApi for easier testing."""
-    with patch("homeassistant.components.canary.API") as mock_canary:
-        instance = mock_canary.return_value = API(
+    with patch("homeassistant.components.canary.Api") as mock_canary:
+        instance = mock_canary.return_value = Api(
             "test-username",
             "test-password",
             1,
