@@ -5,7 +5,7 @@ from homeassistant.components.canary.sensor import (
     STATE_AIR_QUALITY_ABNORMAL,
 )
 from homeassistant.const import ATTR_UNIT_OF_MEASUREMENT, PERCENTAGE, TEMP_CELSIUS
-from homeassistant.setup import setup_component
+from homeassistant.setup import async_setup_component
 
 from . import mock_device, mock_location, mock_reading
 
@@ -13,9 +13,9 @@ from tests.async_mock import patch
 from tests.common import mock_registry
 
 
-def test_sensors(hass, canary) -> None:
+async def test_sensors(hass, canary) -> None:
     """Test the creation and values of the sensors."""
-    assert setup_component(hass, "persistent_notification", {})
+    assert await async_setup_component(hass, "persistent_notification", {})
 
     registry = mock_registry(hass)
     online_device_at_home = mock_device(20, "Dining Room", True, "Canary Pro")
@@ -41,8 +41,8 @@ def test_sensors(hass, canary) -> None:
         "homeassistant.components.canary.camera.setup_platform",
         return_value=True,
     ):
-        assert setup_component(hass, DOMAIN, config)
-        hass.block_till_done()
+        assert await async_setup_component(hass, DOMAIN, config)
+        await hass.async_block_till_done()
 
     sensors = {
         "home_dining_room_temperature": (
