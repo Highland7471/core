@@ -27,7 +27,7 @@ async def test_sensors_pro(hass, canary) -> None:
         mock_location(100, "Home", True, devices=[online_device_at_home]),
     ]
 
-    instance.get_readings.return_value = [
+    instance.get_latest_readings.return_value = [
         mock_reading("temperature", "21.12"),
         mock_reading("humidity", "50.46"),
         mock_reading("air_quality", "0.59"),
@@ -85,7 +85,6 @@ async def test_sensors_attributes_pro(hass, canary) -> None:
     """Test the creation and values of the sensors attributes for Canary Pro."""
     assert await async_setup_component(hass, "persistent_notification", {})
 
-    registry = mock_registry(hass)
     online_device_at_home = mock_device(20, "Dining Room", True, "Canary Pro")
 
     instance = canary.return_value
@@ -93,7 +92,7 @@ async def test_sensors_attributes_pro(hass, canary) -> None:
         mock_location(100, "Home", True, devices=[online_device_at_home]),
     ]
 
-    instance.get_readings.return_value = [
+    instance.get_latest_readings.return_value = [
         mock_reading("temperature", "21.12"),
         mock_reading("humidity", "50.46"),
         mock_reading("air_quality", "0.59"),
@@ -115,7 +114,7 @@ async def test_sensors_attributes_pro(hass, canary) -> None:
     assert state
     assert state.device_state_attributes[ATTR_AIR_QUALITY] == STATE_AIR_QUALITY_ABNORMAL
 
-    instance.get_readings.return_value = [
+    instance.get_latest_readings.return_value = [
         mock_reading("temperature", "21.12"),
         mock_reading("humidity", "50.46"),
         mock_reading("air_quality", "0.4"),
@@ -129,7 +128,7 @@ async def test_sensors_attributes_pro(hass, canary) -> None:
         == STATE_AIR_QUALITY_VERY_ABNORMAL
     )
 
-    instance.get_readings.return_value = [
+    instance.get_latest_readings.return_value = [
         mock_reading("temperature", "21.12"),
         mock_reading("humidity", "50.46"),
         mock_reading("air_quality", "1.0"),
@@ -153,7 +152,7 @@ async def test_sensors_flex(hass, canary) -> None:
         mock_location(100, "Home", True, devices=[online_device_at_home]),
     ]
 
-    instance.get_readings.return_value = [
+    instance.get_latest_readings.return_value = [
         mock_reading("battery", "70.4567"),
         mock_reading("wifi", "-57"),
     ]
