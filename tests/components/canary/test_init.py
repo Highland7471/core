@@ -1,13 +1,13 @@
 """The tests for the Canary component."""
 from homeassistant.setup import setup_component
-import homeassistant.components.canary as canary
+from homeassistant.components.canary import DOMAIN
 
 from tests.async_mock import patch
 
 
 def test_setup_with_valid_config(hass, canary) -> None:
     """Test setup with valid YAML."""
-    config = {"canary": {"username": "foo@bar.org", "password": "bar"}}
+    config = {DOMAIN: {"username": "foo@bar.org", "password": "bar"}}
 
     with patch(
         "homeassistant.components.canary.alarm_control_panel.setup_platform",
@@ -19,4 +19,4 @@ def test_setup_with_valid_config(hass, canary) -> None:
         "homeassistant.components.canary.sensor.setup_platform",
         return_value=True,
     ):
-        assert setup_component(hass, canary.DOMAIN, config)
+        assert setup_component(hass, DOMAIN, config)
