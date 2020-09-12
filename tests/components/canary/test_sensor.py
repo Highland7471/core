@@ -8,6 +8,7 @@ from homeassistant.components.canary.sensor import (
 )
 from homeassistant.const import PERCENTAGE, TEMP_CELSIUS
 
+from . import mock_device, mock_location, mock_reading
 from tests.async_mock import patch
 
 
