@@ -16,7 +16,7 @@ from homeassistant.setup import setup_component
 from . import mock_device, mock_location, mock_reading
 
 from tests.async_mock import patch
-from tests.commom import mock_registry
+from tests.common import mock_registry
 
 
 def test_sensors(hass, canary) -> None:
@@ -26,9 +26,7 @@ def test_sensors(hass, canary) -> None:
 
     instance = canary.return_value
     instance.get_locations.return_value = [
-        mock_location(
-            "Home", True, devices=[online_device_at_home]
-        ),
+        mock_location("Home", True, devices=[online_device_at_home]),
     ]
 
     instance.get_readings.return_value = [
@@ -49,36 +47,24 @@ def test_sensors(hass, canary) -> None:
             "21.12",
             TEMP_CELSIUS,
             None,
-            "mdi:thermometer"
+            "mdi:thermometer",
         ),
         "home_dining_room_humidity": (
             None,
             "50.46",
             PERCENTAGE,
             None,
-            "mdi:water-percent"
+            "mdi:water-percent",
         ),
-        "home_dining_room_air_quality": (
-            None,
-            "0.4",
-            None,
-            None,
-            "mdi:weather-windy"
-        ),
+        "home_dining_room_air_quality": (None, "0.4", None, None, "mdi:weather-windy"),
         "home_dining_room_battery": (
             None,
             "70.4567",
             PERCENTAGE,
             None,
-            "mdi:battery-70"
+            "mdi:battery-70",
         ),
-        "home_dining_room_wifi": (
-            None,
-            "-57",
-            "dBm",
-            None,
-            "mdi:wifi"
-        ),
+        "home_dining_room_wifi": (None, "-57", "dBm", None, "mdi:wifi"),
     }
 
     for (sensor_id, data) in sensors.items():
