@@ -23,6 +23,15 @@ def mock_location(name, is_celsius=True, devices=None):
     return location
 
 
+def mock_mode(mode_id, name):
+    """Mock Canary Mode class."""
+    mode = MagicMock()
+    type(mode).mode_id = PropertyMock(return_value=mode_id)
+    type(mode).name = PropertyMock(return_value=mode_name)
+    type(mode).resource_url = PropertyMock(return_value=f"/v1/modes/{mode_id}")
+    return mode
+
+
 def mock_reading(sensor_type, sensor_value):
     """Mock Canary Reading class."""
     reading = MagicMock()
