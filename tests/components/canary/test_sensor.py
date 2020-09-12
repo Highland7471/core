@@ -29,8 +29,6 @@ async def test_sensors_pro(hass, canary) -> None:
         mock_reading("temperature", "21.12"),
         mock_reading("humidity", "50.46"),
         mock_reading("air_quality", "0.4"),
-        mock_reading("battery", "70.4567"),
-        mock_reading("wifi", "-57"),
     ]
 
     config = {DOMAIN: {"username": "test-username", "password": "test-password"}}
@@ -92,7 +90,7 @@ async def test_sensors_flex(hass, canary) -> None:
     assert await async_setup_component(hass, "persistent_notification", {})
 
     registry = mock_registry(hass)
-    online_device_at_home = mock_device(20, "Living Room", True, "Canary Flex")
+    online_device_at_home = mock_device(20, "Dining Room", True, "Canary Flex")
 
     instance = canary.return_value
     instance.get_locations.return_value = [
