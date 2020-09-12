@@ -17,6 +17,7 @@ def canary(hass):
             1,
         )
 
+        instance._modes_by_name = PropertyMock(return_value={})
         instance.get_entries = MagicMock(return_value=[])
         instance.get_locations = MagicMock(return_value=[])
         instance.get_location = MagicMock(return_value=None)
