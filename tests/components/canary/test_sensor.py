@@ -4,11 +4,7 @@ from homeassistant.components.canary.sensor import (
     ATTR_AIR_QUALITY,
     STATE_AIR_QUALITY_ABNORMAL,
 )
-from homeassistant.const import (
-    ATTR_UNIT_OF_MEASUREMENT,
-    PERCENTAGE,
-    TEMP_CELSIUS,
-)
+from homeassistant.const import ATTR_UNIT_OF_MEASUREMENT, PERCENTAGE, TEMP_CELSIUS,
 from homeassistant.setup import setup_component
 
 from . import mock_device, mock_location, mock_reading
