@@ -20,3 +20,4 @@ def test_setup_with_valid_config(hass, canary) -> None:
         return_value=True,
     ):
         assert setup_component(hass, DOMAIN, config)
+        hass.block_till_done()
