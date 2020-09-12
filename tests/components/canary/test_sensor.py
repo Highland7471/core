@@ -30,7 +30,7 @@ async def test_sensors_pro(hass, canary) -> None:
     instance.get_readings.return_value = [
         mock_reading("temperature", "21.12"),
         mock_reading("humidity", "50.46"),
-        mock_reading("air_quality", "0.4"),
+        mock_reading("air_quality", "0.59"),
     ]
 
     config = {DOMAIN: {"username": "test-username", "password": "test-password"}}
