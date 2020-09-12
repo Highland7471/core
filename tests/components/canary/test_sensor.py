@@ -40,6 +40,7 @@ def test_sensors(hass, canary) -> None:
         return_value=True,
     ):
         assert setup_component(hass, DOMAIN, config)
+        hass.block_till_done()
 
     sensors = {
         "home_dining_room_temperature": (
