@@ -8,7 +8,6 @@ from tests.async_mock import patch
 from tests.common import get_test_home_assistant
 
 
-@patch("homeassistant.components.canary.CanaryData.update")
 def test_setup_with_valid_config(hass, canary) -> None:
     """Test setup with valid YAML."""
     config = {"canary": {"username": "foo@bar.org", "password": "bar"}}
@@ -33,6 +32,7 @@ def test_setup_with_missing_username(hass, canary) -> None:
     """Test setup with missing username."""
     config = {"canary": {"password": "bar"}}
     assert not setup_component(hass, canary.DOMAIN, config)
+
 
 def test_setup_with_missing_password(hass, canary):
     """Test setup with missing password."""
