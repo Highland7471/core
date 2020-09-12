@@ -113,8 +113,7 @@ async def test_sensors_attributes_pro(hass, canary) -> None:
     entity_id = "sensor.home_dining_room_air_quality"
     state = hass.states.get(entity_id)
     assert state
-
-    state.device_state_attributes[ATTR_AIR_QUALITY] == STATE_AIR_QUALITY_ABNORMAL
+    assert state.device_state_attributes[ATTR_AIR_QUALITY] == STATE_AIR_QUALITY_ABNORMAL
 
     instance.get_readings.return_value = [
         mock_reading("temperature", "21.12"),
