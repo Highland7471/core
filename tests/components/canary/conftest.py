@@ -4,6 +4,7 @@ from pytest import fixture
 
 from tests.async_mock import MagicMock, PropertyMock, patch
 
+
 @fixture
 def canary(hass):
     """Mock the CanaryApi for easier testing."""
