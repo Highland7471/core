@@ -2,9 +2,7 @@
 from homeassistant.components.canary import DOMAIN
 from homeassistant.components.canary.sensor import (
     ATTR_AIR_QUALITY,
-    STATE_AIR_QUALITY_ABNORMAL,
-    STATE_AIR_QUALITY_NORMAL,
-    STATE_AIR_QUALITY_VERY_ABNORMAL,
+    STATE_AIR_QUALITY_ABNORMAL,,
 )
 from homeassistant.const import (
     ATTR_UNIT_OF_MEASUREMENT,
@@ -78,3 +76,9 @@ def test_sensors(hass, canary) -> None:
         assert state.attributes.get(ATTR_UNIT_OF_MEASUREMENT) == data[2]
         assert state.state == data[1]
         assert state.icon == data[4]
+
+        if sensor_id == 'home_dining_room_air_quality':
+            assert (
+                state.device_state_attributes[ATTR_AIR_QUALITY]
+                == STATE_AIR_QUALITY_ABNORMAL
+            )
