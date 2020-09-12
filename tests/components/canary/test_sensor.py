@@ -56,7 +56,13 @@ def test_sensors(hass, canary) -> None:
             None,
             "mdi:water-percent",
         ),
-        "home_dining_room_air_quality": ("20_air_quality", "0.4", None, None, "mdi:weather-windy"),
+        "home_dining_room_air_quality": (
+            "20_air_quality",
+            "0.4",
+            None,
+            None,
+            "mdi:weather-windy"
+        ),
         "home_dining_room_battery": (
             "20_battery",
             "70.4567",
