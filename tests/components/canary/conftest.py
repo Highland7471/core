@@ -2,7 +2,7 @@
 from canary.api import Api
 from pytest import fixture
 
-from tests.async_mock import MagicMock, PropertyMock, patch
+from tests.async_mock import MagicMock, patch
 
 
 @fixture
@@ -17,7 +17,6 @@ def canary(hass):
             1,
         )
 
-        instance._modes_by_name = PropertyMock(return_value={})
         instance.get_entries = MagicMock(return_value=[])
         instance.get_locations = MagicMock(return_value=[])
         instance.get_location = MagicMock(return_value=None)
