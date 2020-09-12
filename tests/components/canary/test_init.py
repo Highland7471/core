@@ -1,6 +1,6 @@
 """The tests for the Canary component."""
-from homeassistant.setup import setup_component
 from homeassistant.components.canary import DOMAIN
+from homeassistant.setup import setup_component
 
 from tests.async_mock import patch
 
