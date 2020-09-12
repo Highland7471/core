@@ -19,5 +19,6 @@ def test_setup_with_valid_config(hass, canary) -> None:
         "homeassistant.components.canary.sensor.setup_platform",
         return_value=True,
     ):
+        assert setup_component(hass, "persistent_notification", {})
         assert setup_component(hass, DOMAIN, config)
         hass.block_till_done()
