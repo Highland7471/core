@@ -22,7 +22,7 @@ async def test_sensors_pro(hass, canary) -> None:
 
     instance = canary.return_value
     instance.get_locations.return_value = [
-        mock_location("Home", True, devices=[online_device_at_home]),
+        mock_location(100, "Home", True, devices=[online_device_at_home]),
     ]
 
     instance.get_readings.return_value = [
@@ -94,7 +94,7 @@ async def test_sensors_flex(hass, canary) -> None:
 
     instance = canary.return_value
     instance.get_locations.return_value = [
-        mock_location("Home", True, devices=[online_device_at_home]),
+        mock_location(100, "Home", True, devices=[online_device_at_home]),
     ]
 
     instance.get_readings.return_value = [
