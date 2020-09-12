@@ -15,6 +15,8 @@ from tests.common import mock_registry
 
 def test_sensors(hass, canary) -> None:
     """Test the creation and values of the sensors."""
+    assert setup_component(hass, "persistent_notification", {})
+
     registry = mock_registry(hass)
     online_device_at_home = mock_device(20, "Dining Room", True, "Canary Pro")
 
@@ -39,7 +41,6 @@ def test_sensors(hass, canary) -> None:
         "homeassistant.components.canary.camera.setup_platform",
         return_value=True,
     ):
-        assert setup_component(hass, "persistent_notification", {})
         assert setup_component(hass, DOMAIN, config)
         hass.block_till_done()
 
@@ -63,7 +64,7 @@ def test_sensors(hass, canary) -> None:
             "0.4",
             None,
             None,
-            "mdi:weather-windy"
+            "mdi:weather-windy",
         ),
         "home_dining_room_battery": (
             "20_battery",
